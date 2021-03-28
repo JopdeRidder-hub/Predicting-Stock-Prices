@@ -21,7 +21,7 @@ data = web.DataReader(company, 'yahoo', start, end)
 # Prepaire Data
 
 scaler = MinMaxScaler(feature_range=(0, 1))
-scaled_data = scaler.fit_transform(data['Close']).values.reshape(-1, 1)
+scaled_data = scaler.fit_transform(data['Close'].values.reshape(-1, 1))
 
 prediction_days = 60
 
@@ -55,7 +55,7 @@ test_data = web.DataReader(company, 'yahoo', test_start, test_end)
 
 actual_prices = test_data['Close'].values
 
-total_dataset = pd.concat((data['Close'], test_data['Close'], axis=0))
+total_dataset = pd.concat((data['Close'], test_data['Close']), axis=0)
 
 model_inputs = total_dataset[len(
     total_dataset) - len(test_data) - prediction_days:].values
